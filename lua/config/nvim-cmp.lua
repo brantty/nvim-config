@@ -70,6 +70,36 @@ cmp.setup.filetype("tex", {
   },
 })
 
+cmp.setup.cmdline({ "/", "?" }, {
+  completion = { completeopt = 'menu,menuone,noselect' },
+  -- mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+
+cmp.setup.cmdline(":", {
+  completion = { completeopt = 'menu,menuone,noselect' },
+  -- mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    name = "cmdline",
+    option = {
+      ignore_cmds = { "Man", "!" }
+    },
+  }),
+})
+
+local autocomplete_group = vim.api.nvim_create_augroup("dadbod-autocomplete", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  patten = { "sql", "plsql", "mysql" },
+  callback = function()
+    cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+  end,
+  group = autocomplete_group
+})
+
 --  see https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu
 vim.cmd([[
   highlight! link CmpItemMenu Comment

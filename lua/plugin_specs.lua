@@ -33,6 +33,7 @@ local plugin_specs = {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-omni",
+      "hrsh7th/cmp-cmdline",
       "quangnguyen30192/cmp-nvim-ultisnips",
     },
     config = function()
@@ -58,6 +59,24 @@ local plugin_specs = {
     end,
     event = "VeryLazy",
     build = ":TSUpdate",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "CKolkey/ts-node-action",
+      "nvim-treesitter/nvim-treesitter-context",
+      {
+        "bennypowers/template-literal-comments.nvim",
+        opts = true,
+        ft = {
+          "javascript",
+          "typescript",
+        },
+      },
+      {
+        "LiadOz/nvim-dap-repl-highlights",
+        config = true,
+      },
+    },
     config = function()
       require("config.treesitter")
     end,
@@ -608,6 +627,77 @@ local plugin_specs = {
     event = "BufReadPre",
     opts = { -- set to setup table
     },
+  },
+
+  {
+    "jmbuhr/otter.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function ()
+      vim.api.nvim_create_autocmd({"FileType"}, {
+        pattern = {"toml"},
+        group = vim.api.nvim_create_augroup("EmbedToml", {}),
+        callback = function ()
+          require("otter").activate()
+        end,
+      })
+    end,
+  },
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {},
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
+
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      {
+        "tpope/vim-dadbod",
+        lazy = true,
+      },
+      {
+        "kristijanhusak/vim-dadbod-completion",
+        ft = { "sql", "mysql", "plsql" },
+        lazy = true,
+      },
+      {
+        "napisani/nvim-dadbod-bg",
+        build = "./install.sh",
+        config = function ()
+          vim.cmd([[
+            let g:nvim_dadbod_bg_port = "4546",
+            let g:nvim_dadbod_bg_log_file = "/tmp/nvim-dadbod-bg.log"
+          ]])
+        end,
+      },
+    },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
+    },
+    keys = {
+      { "<leader>db", "tab DBUI", { "n" } },
+    },
+    init = function ()
+      vim.g.db_ui_use_nerd_fonts = 1
+      vim.g.db_ui_table_helpers = {
+        sqlserver = {
+          List = "select * from {table}",
+          Count = "select count(*) from {table}",
+        },
+      }
+    end,
+    lazy = true,
   },
 }
 
