@@ -71,33 +71,75 @@ cmp.setup.filetype("tex", {
 })
 
 cmp.setup.cmdline({ "/", "?" }, {
-  completion = { completeopt = 'menu,menuone,noselect' },
-  -- mapping = cmp.mapping.preset.cmdline(),
+  -- completion = { completeopt = 'menu,menuone,noselect' },
+  mapping = cmp.mapping.preset.cmdline({
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+    ["<CR>"] = cmp.mapping.confirm { select = true },
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<Esc>"] = cmp.mapping.close(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  }),
   sources = {
     { name = "buffer" },
   },
 })
 
 cmp.setup.cmdline(":", {
-  completion = { completeopt = 'menu,menuone,noselect' },
-  -- mapping = cmp.mapping.preset.cmdline(),
+  -- completion = { completeopt = 'menu,menuone,noselect' },
+  mapping = cmp.mapping.preset.cmdline({
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+    ["<CR>"] = cmp.mapping.confirm { select = true },
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<Esc>"] = cmp.mapping.close(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  }),
   sources = cmp.config.sources({
     { name = "path" },
   }, {
-    name = "cmdline",
-    option = {
-      ignore_cmds = { "Man", "!" }
+    {
+      name = "cmdline",
+      option = {
+        ignore_cmds = { "Man", "!" }
+      },
     },
   }),
 })
 
 local autocomplete_group = vim.api.nvim_create_augroup("dadbod-autocomplete", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  patten = { "sql", "plsql", "mysql" },
+  pattern = { "sql", "plsql", "mysql" },
   callback = function()
     cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
   end,
-  group = autocomplete_group
+  group = autocomplete_group,
 })
 
 --  see https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu

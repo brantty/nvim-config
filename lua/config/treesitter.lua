@@ -1,5 +1,5 @@
 require("nvim-treesitter.configs").setup {
-  ensure_installed = { 
+  ensure_installed = {
     "angular",
     "awk",
     "bash",
@@ -19,7 +19,7 @@ require("nvim-treesitter.configs").setup {
     "html",
     "http",
     "javascript",
-    ";xml",
+    "xml",
     "jq",
     "json",
     "jsonc",
