@@ -101,9 +101,34 @@ local plugin_specs = {
   --},
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+    },
     event = { "BufRead", "BufNewFile" },
     config = function()
       require("config.lsp")
+    end,
+  },
+  {
+    "mason-org/mason.nvim",
+    dependencies = {
+      "mason-org/mason-lspconfig.nvim",
+    },
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+    build = ":MasonUpdate",
+    config = function(_, _)
+      require("config.mason")
+    end,
+  },
+  {
+    "stevearc/conform.nvim",
+    dependencies = {
+      "mason-org/mason.nvim",
+    },
+    config = function(_, _)
+      require("config.conform")
     end,
   },
   {
