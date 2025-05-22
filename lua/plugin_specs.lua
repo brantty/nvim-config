@@ -209,6 +209,8 @@ local plugin_specs = {
   },
   -- A list of colorscheme plugin you may want to try. Find what suits you.
   { "navarasu/onedark.nvim", lazy = true },
+  { "folke/tokyonight.nvim", lazy = true },
+  { "catppuccin/nvim", lazy = true },
   { "sainnhe/edge", lazy = true },
   { "sainnhe/sonokai", lazy = true },
   { "sainnhe/gruvbox-material", lazy = true },
@@ -651,6 +653,29 @@ local plugin_specs = {
   {
     "Bekaboo/dropbar.nvim",
     event = "VeryLazy",
+  },
+  {
+    "ggandor/leap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } },
+    },
+    config = function(_, opts)
+      local leap = require("leap")
+      for k, v in pairs(opts) do
+        leap.opts[k] = v
+      end
+      leap.add_default_mappings()
+    end,
+  },
+  {
+    "abecodes/tabout.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp",
+    },
+    config = true,
   },
   {
     "catgoose/nvim-colorizer.lua",

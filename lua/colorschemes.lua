@@ -46,6 +46,12 @@ M.colorscheme_conf = {
   nightfox = function()
     vim.cmd([[colorscheme carbonfox]])
   end,
+  catppuccin = function()
+    vim.cmd([[colorscheme catppuccin]])
+  end,
+  tokyonight = function()
+    vim.cmd([[colorscheme tokyonight]])
+  end,
   onedarkpro = function()
     -- set colorscheme after options
     -- onedark_vivid does not enough contrast
