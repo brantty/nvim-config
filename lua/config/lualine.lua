@@ -81,8 +81,8 @@ local function ime_state()
 
     -- We can use `xkbswitch -g` on the command line to get current mode.
     -- mode for macOS builtin pinyin IME: com.apple.inputmethod.SCIM.ITABC
-    -- mode for Rime: im.rime.inputmethod.Squirrel.Rime
-    local res = fn.match(layout, [[\v(Squirrel\.Rime|SCIM.ITABC)]])
+    -- mode for Rhyme: im.rhyme.inputmethod.Squirrel.Rhyme
+    local res = fn.match(layout, [[\v(Squirrel\.Rhyme|SCIM.ITABC)]])
     if res ~= -1 then
       return "[CN]"
     end
@@ -215,6 +215,7 @@ require("lualine").setup {
   },
   sections = {
     lualine_a = {
+      "mode",
       {
         "filename",
         symbols = {

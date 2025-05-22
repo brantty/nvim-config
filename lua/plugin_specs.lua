@@ -485,7 +485,8 @@ local plugin_specs = {
   { "wellle/targets.vim", event = "VeryLazy" },
 
   -- Plugin to manipulate character pairs quickly
-  { "machakann/vim-sandwich", event = "VeryLazy" },
+  -- { "machakann/vim-sandwich", event = "VeryLazy" },
+  { "kylechui/nvim-surround", version = "^3.0.0", event = "VeryLazy", config = true },
 
   -- Only use these plugin on Windows and Mac and when LaTeX is installed
   {
@@ -582,6 +583,8 @@ local plugin_specs = {
       },
       -- more beautiful vim.ui.select
       picker = { enabled = true },
+      -- terminal
+      terminal = { enabled = true },
     },
   },
   -- show and trim trailing whitespaces
@@ -656,20 +659,32 @@ local plugin_specs = {
   },
   {
     "ggandor/leap.nvim",
+    enabled = false,
     event = "VeryLazy",
     dependencies = {
       { "ggandor/flit.nvim", opts = { labeled_modes = "nv" } },
     },
     config = function(_, opts)
       local leap = require("leap")
-      for k, v in pairs(opts) do
-        leap.opts[k] = v
-      end
-      leap.add_default_mappings()
+      leap.set_default_mappings()
     end,
   },
   {
-    "abecodes/tabout.nvim",
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+  {
+    "abecjodes/tabout.nvim",
     event = "VeryLazy",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

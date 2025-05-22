@@ -110,8 +110,8 @@ nmap ga <Plug>(UnicodeGA)
 
 """"""""""""""""""""""""""""vim-sandwich settings"""""""""""""""""""""""""""""
 " Map s to nop since s in used by vim-sandwich. Use cl instead of s.
-nmap s <Nop>
-omap s <Nop>
+" nmap s <Nop>
+" omap s <Nop>
 
 """"""""""""""""""""""""""""vimtex settings"""""""""""""""""""""""""""""
 if executable('latex')

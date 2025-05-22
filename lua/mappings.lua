@@ -14,6 +14,14 @@ keymap.set("i", "<c-t>", "<Esc>b~lea")
 keymap.set("n", "<leader>p", "m`o<ESC>p``", { desc = "paste below current line" })
 keymap.set("n", "<leader>P", "m`O<ESC>p``", { desc = "paste above current line" })
 
+-- Better escape using jk in insert and terminal mode
+keymap.set("i", "jk", "<ESC>")
+keymap.set("t", "jk", "<C-\\><C-n>")
+keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h")
+keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j")
+keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k")
+keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l")
+
 -- Shortcut for faster save and quit
 keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save buffer" })
 
@@ -24,7 +32,7 @@ keymap.set("n", "<leader>q", "<cmd>x<cr>", { silent = true, desc = "quit current
 keymap.set("n", "<leader>Q", "<cmd>qa!<cr>", { silent = true, desc = "quit nvim" })
 
 -- Close location list or quickfix list if they are present, see https://superuser.com/q/355325/736190
-keymap.set("n", [[\x]], "<cmd>windo lclose <bar> cclose <cr>", {
+keymap.set("n", [[\x]], "<cmd>window lclose <bar> cclose <cr>", {
   silent = true,
   desc = "close qf and location list",
 })
