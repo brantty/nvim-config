@@ -3,30 +3,42 @@ local M = {}
 -- LSP servers
 local lsp_servers = {
   -- lsp servers
+  "bashls",
+  "clangd",
+  "cssls",
+  "eslint",
+  "gopls",
+  "groovyls",
+  "html",
+  "jdtls",
+  "jsonls",
+  "kotlin_language_server",
+  "lua_ls",
+  "markdown_oxide",
   "pyright",
   "ruff",
-  "lua_ls",
-  "vimls",
-  "bashls",
-  "yamlls",
-  "ts_ls",
-  "zls",
   "rust_analyzer",
+  "ts_ls",
+  "vimls",
+  "yamlls",
+  "zls",
 }
 
 function M.lsp_servers()
   return lsp_servers
 end
 
--- formatters
-local formatters = {
+-- formatters and DAP
+local dap_formatters = {
   "stylua",
   "isort",
   "black",
+  "clang-format",
   -- "ruff_format",
   "goimports",
   -- "gofmt",
   -- "markdownfmt",
+  "pgformatter",
   "prettierd",
   "prettier",
   -- "rustfmt",
@@ -37,6 +49,13 @@ local formatters = {
   -- "zigfmt",
   "codespell",
   -- "trim_whitespace",
+
+  -- lint
+  "eslint_d",
+
+  -- DAPs
+  "chrome-debug-adapter",
+  "go-debug-adapter",
 }
 
 -- local ensure_installed = {}
@@ -65,7 +84,7 @@ mason_registry:on("package:install:success", function()
 end)
 
 mason_registry.refresh(function()
-  for _, package in ipairs(formatters) do
+  for _, package in ipairs(dap_formatters) do
     local p = mason_registry.get_package(package)
     if not p:is_installed() then
       p:install()

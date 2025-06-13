@@ -13,7 +13,7 @@ vim.loader.enable()
 
 local utils = require("utils")
 
-local expected_version = "0.11.1"
+local expected_version = "0.11.2"
 utils.is_compatible_version(expected_version)
 
 local config_dir = vim.fn.stdpath("config")
@@ -33,8 +33,12 @@ vim.cmd("source " .. vim.fs.joinpath(config_dir, "viml_conf/plugins.vim"))
 -- diagnostic related config
 require("diagnostic-conf")
 
--- colorscheme settings
-local color_scheme = require("colorschemes")
+if vim.g.vscode then
+  -- VScode
+else
+  -- colorscheme settings
+  local color_scheme = require("colorschemes")
 
--- Load a random colorscheme
-color_scheme.rand_colorscheme()
+  -- Load a random colorscheme
+  color_scheme.rand_colorscheme()
+end
